@@ -17,13 +17,12 @@ stopwords_es = set(stopwords.words("spanish"))
 
 app = FastAPI()
 
-origins = ["http://localhost", "http://localhost:5173", "https://bi-p1.vercel.app/"]
-
+# Configurar CORS para permitir solicitudes desde todos los orígenes
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
     allow_headers=["*"],
 )
 
