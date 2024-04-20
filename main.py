@@ -5,6 +5,7 @@ from nltk.corpus import stopwords
 from nltk.stem import SnowballStemmer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from fastapi import FastAPI
+from fastapi.responses import JSONResponse
 
 # Load the trained model from the joblib file
 vectorizer = TfidfVectorizer()
@@ -56,4 +57,4 @@ async def root():
 def predict_review(review: str):
     # Rate the review using the loaded vectorizer and model
     predicted_score = rate_review(review)
-    return {"review": review, "predicted_score": predicted_score}
+    return {"review": review, "predicted_score": int(predicted_score)}
