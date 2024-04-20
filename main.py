@@ -3,7 +3,6 @@ import re
 from nltk.corpus import stopwords
 from nltk.stem import SnowballStemmer
 from sklearn.feature_extraction.text import TfidfVectorizer
-from scipy.sparse import vstack
 from fastapi import FastAPI
 
 # Load the trained model from the joblib file
