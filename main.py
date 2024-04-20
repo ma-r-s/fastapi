@@ -6,6 +6,7 @@ from nltk.stem import SnowballStemmer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 
 # Load the trained model from the joblib file
 vectorizer = TfidfVectorizer()
@@ -15,6 +16,16 @@ stopwords_es = set(stopwords.words("spanish"))
 
 
 app = FastAPI()
+
+origins = ["http://localhost", "http://localhost:5173", "https://bi-p1.vercel.app/"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Load both the fitted vectorizer and the trained model from the same joblib file
 loaded_vectorizer, loaded_model = joblib.load("vectorizer_model.pkl")
@@ -55,6 +66,7 @@ async def root():
 
 @app.get("/predict/")
 def predict_review(review: str):
+    print(review)
     # Rate the review using the loaded vectorizer and model
     predicted_score = rate_review(review)
     return {"review": review, "predicted_score": int(predicted_score)}
