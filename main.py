@@ -1,5 +1,6 @@
 import joblib
 import re
+import nltk
 from nltk.corpus import stopwords
 from nltk.stem import SnowballStemmer
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -8,6 +9,7 @@ from fastapi import FastAPI
 # Load the trained model from the joblib file
 vectorizer = TfidfVectorizer()
 stemmer = SnowballStemmer("spanish")
+nltk.download("stopwords")
 stopwords_es = set(stopwords.words("spanish"))
 
 
